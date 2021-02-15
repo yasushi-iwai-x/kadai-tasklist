@@ -38,12 +38,9 @@ public class CreateServlet extends HttpServlet {
         String _token = request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
-            em.getTransaction().begin();
+
 
             Task t = new Task();
-
-            String title = request.getParameter("title");
-            t.setTitle(title);
 
             String content = request.getParameter("content");
             t.setContent(content);

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,10 +34,13 @@ public class IndexServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
+
         int page = 1;
         try {
             page = Integer.parseInt(request.getParameter("page"));
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException e) {
+
+        }
 
         List<Task> tasks = em.createNamedQuery("getAllTasks", Task.class)
                 .setFirstResult(15 * (page -1))
@@ -51,6 +55,8 @@ public class IndexServlet extends HttpServlet {
         request.setAttribute("tasks", tasks);
         request.setAttribute("tasks_count", tasks_count);
         request.setAttribute("page", page);
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/index.jsp");
+        rd.forward(request, response);
     }
 
 }

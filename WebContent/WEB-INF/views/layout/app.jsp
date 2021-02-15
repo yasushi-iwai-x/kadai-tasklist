@@ -19,6 +19,6 @@
     <div id="footer">
     by Yasushi Iwai.
     </div>
-    </div>"
+    </div>
     </body>
 </html>
